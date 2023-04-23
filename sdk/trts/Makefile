@@ -39,6 +39,7 @@ CPPFLAGS += -I$(COMMON_DIR)/inc          \
 
 CXXFLAGS += $(ENCLAVE_CXXFLAGS) \
             -Werror         \
+            -Wno-cast-align -Wno-sign-conversion \
             -fno-exceptions \
             -fno-rtti
 

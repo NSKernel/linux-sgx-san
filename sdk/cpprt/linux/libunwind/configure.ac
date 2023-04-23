@@ -147,7 +147,7 @@ AC_ARG_ENABLE(documentation,
 
 AC_ARG_ENABLE(tests,
  AS_HELP_STRING([--disable-tests],[Disable tests build]),,
- [enable_tests=yes])
+ [enable_tests=no])
 
 AC_MSG_CHECKING([if we should build libunwind-setjmp])
 AC_MSG_RESULT([$enable_setjmp])

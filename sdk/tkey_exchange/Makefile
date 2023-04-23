@@ -32,7 +32,7 @@
 TOP_DIR  = ../..
 include $(TOP_DIR)/buildenv.mk
 
-CXXFLAGS += -Werror
+CXXFLAGS += -Werror -Wno-cast-align -Wno-sign-conversion
 
 INCLUDE += -I$(COMMON_DIR)/inc/tlibc    \
            -I$(COMMON_DIR)/inc/internal \

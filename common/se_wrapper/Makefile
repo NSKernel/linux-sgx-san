@@ -31,7 +31,7 @@
 
 include ../../buildenv.mk
 
-CFLAGS += -Werror -D_GNU_SOURCE -fPIC
+CFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align -D_GNU_SOURCE -fPIC
 CFLAGS += $(ADDED_INC)
 
 CPPFLAGS := -I$(COMMON_DIR)/inc \

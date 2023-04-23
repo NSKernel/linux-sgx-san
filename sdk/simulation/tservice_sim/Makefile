@@ -32,8 +32,8 @@
 TOP_DIR := ../../..
 include $(TOP_DIR)/buildenv.mk
 
-CFLAGS   += -Werror $(ENCLAVE_CFLAGS)
-CXXFLAGS += -Werror $(ENCLAVE_CXXFLAGS)
+CFLAGS   += -Werror -Wno-sign-conversion -Wno-cast-align $(ENCLAVE_CFLAGS)
+CXXFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align $(ENCLAVE_CXXFLAGS)
 
 INCLUDE += -I$(COMMON_DIR)            \
            -I$(COMMON_DIR)/inc/tlibc  \

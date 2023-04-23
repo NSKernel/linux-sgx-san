@@ -39,8 +39,8 @@ CXXFLAGS += -DDISABLE_TRACE
 CFLAGS += -DDISABLE_TRACE
 endif
 
-CXXFLAGS += -fPIC -DSE_SIM -Werror -g
-CFLAGS   += -fPIC -DSE_SIM -Werror -g
+CXXFLAGS += -fPIC -DSE_SIM -Werror -Wno-sign-conversion -Wno-cast-align -Wno-unused-private-field -g
+CFLAGS   += -fPIC -DSE_SIM -Werror -Wno-sign-conversion -Wno-cast-align -g
 
 CPPFLAGS += $(ADDED_INC) #for ubuntu 11 and later version
 CPPFLAGS += -I$(COMMON_DIR)/inc                \

@@ -464,7 +464,7 @@ if( nflg )
 
 return( z );
 }
-DEF_STD(powl);
+//DEF_STD(powl);
 
 
 /* Find a multiple of 1/NXT that is within 1/NXT of x. */

@@ -48,11 +48,13 @@ typedef	long word;		/* "word" used for optimal copy speed */
 extern void *_intel_fast_memcpy(void *, void *, size_t);
 #endif
 
+#define __memcpy __unsan_memcpy
+
 /*
  * Copy a block of memory, not handling overlap.
  */
 void *
-__memcpy(void *dst0, const void *src0, size_t length)
+__unsan_memcpy(void *dst0, const void *src0, size_t length)
 {
 	char *dst = (char *)dst0;
 	const char *src = (const char *)src0;

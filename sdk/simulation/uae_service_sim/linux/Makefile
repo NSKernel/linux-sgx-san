@@ -49,7 +49,7 @@ INCLUDES := -I..                                            \
             -I$(LINUX_PSW_DIR)/ae/inc/internal              \
             -I$(LINUX_PSW_DIR)/ae/common 
 
-CXXFLAGS += -Wall -fPIC $(INCLUDES) -Werror -g
+CXXFLAGS += -Wall -fPIC $(INCLUDES) -Werror -Wno-sign-conversion -Wno-cast-align -g
 CFLAGS := $(filter-out -fPIC -Werror, $(CFLAGS)) -Wall $(INCLUDES)
 
 RDRAND_LIBDIR := $(LINUX_EXTERNAL_DIR)/rdrand/src

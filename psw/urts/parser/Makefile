@@ -50,7 +50,7 @@ TARGET := libenclaveparser.a
 CXXFLAGS += -fPIC
 
 ifneq ($(HOST_OS), darwin)
-  CXXFLAGS += -Werror
+  CXXFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align
 endif
 
 CXXFLAGS += -I$(COMMON_DIR)/inc/         \

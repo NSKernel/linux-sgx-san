@@ -54,8 +54,8 @@ preparation:
 	./external/dcap_source/QuoteVerification/prepare_sgxssl.sh nobuild
 	cd external/openmp/openmp_code && git apply ../0001-Enable-OpenMP-in-SGX.patch >/dev/null 2>&1 ||  git apply ../0001-Enable-OpenMP-in-SGX.patch --check -R
 	@# download prebuilt binaries
-	./download_prebuilt.sh
-	./external/dcap_source/QuoteGeneration/download_prebuilt.sh
+	#./download_prebuilt.sh
+	#./external/dcap_source/QuoteGeneration/download_prebuilt.sh
 
 psw:
 	$(MAKE) -C psw/ USE_OPT_LIBS=$(USE_OPT_LIBS)

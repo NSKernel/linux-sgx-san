@@ -43,14 +43,17 @@
     /* .text */
     .section .nipx,"ax",@progbits
 
+.align 32
 DECLARE_LOCAL_FUNC get_enclave_base
     lea_pic __ImageBase, %xax
     ret
+.align 32
 DECLARE_LOCAL_FUNC get_enclave_state
     lea_pic g_enclave_state, %xcx
     xor     %xax, %xax
     movl    (%xcx), %eax
     ret
+.align 32
 DECLARE_LOCAL_FUNC set_enclave_state
     lea_pic g_enclave_state, %xax
 #ifdef LINUX32
@@ -58,7 +61,7 @@ DECLARE_LOCAL_FUNC set_enclave_state
 #endif
     movl    %edi, (%xax)
     ret
-
+.align 32
 DECLARE_LOCAL_FUNC lock_enclave
     lea_pic g_enclave_state, %xdx
     xor     %xax, %xax
@@ -75,6 +78,7 @@ DECLARE_LOCAL_FUNC lock_enclave
  *     Get the address of thread_data
  * ---------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC get_thread_data
     READ_TD_DATA self_addr 
     ret
@@ -86,6 +90,7 @@ DECLARE_LOCAL_FUNC get_thread_data
  *     Get the value of stack_guard
  * ---------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC get_stack_guard 
     READ_TD_DATA stack_guard 
     ret
@@ -169,6 +174,7 @@ DECLARE_GLOBAL_FUNC enclave_entry
     mov     %xdi, (%xsp)
 #endif
     call    restore_xregs
+.align 32
     add     $(4*SE_WORDSIZE), %xsp
 
     /* switch to C code */
@@ -177,10 +183,14 @@ DECLARE_GLOBAL_FUNC enclave_entry
     mov     -5*SE_WORDSIZE(%xbp), %xsi  /* ms */
     mov     -4*SE_WORDSIZE(%xbp), %xdx  /* TCS */
     mov     -3*SE_WORDSIZE(%xbp), %xcx  /* cssa */
+
+    xor     %r15, %r15
 #endif
     call    enter_enclave
+.align 32    
     mov     %xax, %xbx
 
+.align 32
 .Lexit_enclave:
 /* clean extended feature registers */
     lea_pic SYNTHETIC_STATE, %xdi
@@ -189,6 +199,7 @@ DECLARE_GLOBAL_FUNC enclave_entry
 #endif
     call    restore_xregs
 
+.align 32
 /* set xdi and xsi */
     mov     $OCMD_ERET, %xdi
     mov     %xbx, %xsi
@@ -200,6 +211,7 @@ DECLARE_GLOBAL_FUNC enclave_entry
     pop     %xbx                        /* ret_u */
     mov     %xdx, %xsp                  /* xsp_u */
 
+.align 32
 .Lclear_and_exit_enclave:
     /* Clear all GPRs, except xax, xbx, xdi and xsi */
     xor     %xcx, %xcx
@@ -226,6 +238,7 @@ DECLARE_GLOBAL_FUNC enclave_entry
     /* Should not come here */
     ud2
 
+.align 32
 .Ldo_handler:
     mov     %xax, %xdx          /* XDX: cssa */
     GET_STACK_BASE %xbx         /* XAX: static stack, set sp to stack base */
@@ -283,6 +296,7 @@ DECLARE_GLOBAL_FUNC enclave_entry
  *                            -----------------
  * -------------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC do_ocall
 
 /* 
@@ -334,10 +348,12 @@ DECLARE_LOCAL_FUNC do_ocall
     mov     SE_WORDSIZE*19(%xsp), %xdi # xsave pointer
     mov     %xdi, (%xsp)
     call    save_xregs
+.align 32
     lea_pic SYNTHETIC_STATE, %xdi
     mov     %xdi, (%xsp)
     call    restore_xregs
 
+.align 32
     /* set xdi and xsi using the input parameters */
 #ifdef LINUX64
     mov     SE_WORDSIZE*12(%xsp), %xdi
@@ -369,6 +385,7 @@ DECLARE_LOCAL_FUNC do_ocall
     
     call    update_ocall_lastsp         /* xax: td.last_sp */
 
+.align 32
 #ifdef LINUX64
     mov     SE_WORDSIZE*12(%xsp), %xdi   /* restore xdi */
     mov     SE_WORDSIZE*13(%xsp), %xsi   /* restore xdi */
@@ -417,6 +434,7 @@ DECLARE_LOCAL_FUNC do_ocall
  * stick ocall bridge and proxy frame together
  * ------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC __morestack
     .cfi_startproc
     push %xbp
@@ -433,10 +451,12 @@ DECLARE_LOCAL_FUNC __morestack
     mov %xax, (1*SE_WORDSIZE)(%xsp)
 #endif
     call        do_ocall
+.align 32
     leave
     ret
     .cfi_endproc
 
+.align 32
 DECLARE_GLOBAL_FUNC asm_oret
     mov     %xsp, %xbx
 #ifdef LINUX64
@@ -451,7 +471,7 @@ DECLARE_GLOBAL_FUNC asm_oret
     mov     %xdi, (%xsp)
 #endif
     call    restore_xregs
-
+.align 32
 /* memset_s */
     xor     %xax, %xax
     mov     11*SE_WORDSIZE(%xsp), %xcx
@@ -492,6 +512,7 @@ DECLARE_GLOBAL_FUNC asm_oret
  *	   rcx - the address where the key is outputted
  * ------------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC do_egetkey
     SE_PROLOG
     mov  $SE_EGETKEY, %xax      /* EGETKEY leaf */
@@ -518,6 +539,7 @@ DECLARE_LOCAL_FUNC do_egetkey
  *          non-zero: failure
  * -------------------------------------------------------------------------
  */
+.align 32
 .global Lereport_inst
 DECLARE_LOCAL_FUNC do_ereport
     SE_PROLOG
@@ -528,6 +550,7 @@ Lereport_inst:
     setc      %al
     SE_EPILOG
     
+.align 32
 DECLARE_GLOBAL_FUNC do_eaccept
     SE_PROLOG
     mov     $SE_EACCEPT, %eax
@@ -536,6 +559,7 @@ DECLARE_GLOBAL_FUNC do_eaccept
     jnz	 abort 
     SE_EPILOG
 
+.align 32
 DECLARE_GLOBAL_FUNC do_emodpe
     SE_PROLOG
     mov     $SE_EMODPE, %eax 
@@ -551,6 +575,7 @@ DECLARE_GLOBAL_FUNC do_emodpe
  *	zero: rdrand failed
  * -------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC do_rdrand
     mov $_RDRAND_RETRY_TIMES, %ecx
 .Lrdrand_retry:
@@ -575,6 +600,7 @@ DECLARE_LOCAL_FUNC do_rdrand
  * extern "C" void abort(void) __attribute__(__noreturn__);
  * -------------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC abort
     lea_pic g_enclave_state, %xax
     movl    $ENCLAVE_CRASHED, (%xax)
@@ -585,6 +611,7 @@ DECLARE_LOCAL_FUNC abort
  * extern "C" __attribute__((regparm(1))) void continue_execution(sgx_exception_info_t *info);
  * -------------------------------------------------------------------------
  */
+.align 32
 DECLARE_LOCAL_FUNC continue_execution
 #ifdef LINUX32
     mov     %xax, %xcx

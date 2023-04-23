@@ -46,9 +46,9 @@
 
 #define	_GENTRY(x)	.globl x; .type x,@function; x:
 #define _ENTRY(x) \
-	.text; _ALIGN_TRAPS; _GENTRY(x)
+	.align 32; .text; _ALIGN_TRAPS; _GENTRY(x)
 #define _NENTRY(x) \
-	.text; _ALIGN_TEXT; _GENTRY(x)
+	.align 32; .text; _ALIGN_TEXT; _GENTRY(x)
 
 # define RETGUARD_SETUP_OFF(x, reg, off)
 # define RETGUARD_SETUP(x, reg)

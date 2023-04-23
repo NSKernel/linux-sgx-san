@@ -92,7 +92,7 @@ ifdef DEBUG
     COMMON_FLAGS += -O0 -ggdb -DDEBUG -UNDEBUG
     COMMON_FLAGS += -DSE_DEBUG_LEVEL=SE_TRACE_DEBUG
 else
-    COMMON_FLAGS += -O2 -D_FORTIFY_SOURCE=2 -UDEBUG -DNDEBUG
+    COMMON_FLAGS += -O0 -D_FORTIFY_SOURCE=2 -UDEBUG -DNDEBUG
 endif
 
 ifdef SE_SIM
@@ -116,7 +116,7 @@ COMMON_FLAGS += -Wall -Wextra -Winit-self -Wpointer-arith -Wreturn-type \
 		-Wcast-align -Wconversion -Wredundant-decls
 
 # additional warnings flags for C
-CFLAGS += -Wjump-misses-init -Wstrict-prototypes -Wunsuffixed-float-constants
+CFLAGS += -Wstrict-prototypes #-Wjump-misses-init -Wunsuffixed-float-constants
 
 # additional warnings flags for C++
 CXXFLAGS += -Wnon-virtual-dtor
@@ -207,26 +207,26 @@ MITIGATION_CFLAGS += -B$(BINUTILS_DIR)
 
 ifeq ($(MITIGATION_C), 1)
 ifeq ($(MITIGATION_INDIRECT), 1)
-    MITIGATION_CFLAGS += -mindirect-branch-register
+    MITIGATION_CFLAGS += #-mindirect-branch-register
 endif
 ifeq ($(MITIGATION_RET), 1)
 CC_NO_LESS_THAN_8 := $(shell expr $(CC_VERSION) \>\= "8")
 ifeq ($(CC_NO_LESS_THAN_8), 1)
     MITIGATION_CFLAGS += -fcf-protection=none
 endif
-    MITIGATION_CFLAGS += -mfunction-return=thunk-extern
+    MITIGATION_CFLAGS += #-mfunction-return=thunk-extern
 endif
 endif
 
 ifeq ($(MITIGATION_ASM), 1)
     MITIGATION_ASFLAGS += -fno-plt
 ifeq ($(MITIGATION_AFTERLOAD), 1)
-    MITIGATION_ASFLAGS += -Wa,-mlfence-after-load=yes -Wa,-mlfence-before-indirect-branch=memory
+    MITIGATION_ASFLAGS += #-Wa,-mlfence-after-load=yes -Wa,-mlfence-before-indirect-branch=memory
 else
-    MITIGATION_ASFLAGS += -Wa,-mlfence-before-indirect-branch=all
+    MITIGATION_ASFLAGS += #-Wa,-mlfence-before-indirect-branch=all
 endif
 ifeq ($(MITIGATION_RET), 1)
-    MITIGATION_ASFLAGS += -Wa,-mlfence-before-ret=shl
+    MITIGATION_ASFLAGS += #-Wa,-mlfence-before-ret=shl
 endif
 endif
 

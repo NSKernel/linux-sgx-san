@@ -42,6 +42,7 @@
 #define _ENTRY(x)   .text; _ALIGN_TEXT; .globl x; .type x,@function; x:
 #define ENTRY(y)    _ENTRY(_C_LABEL(y));
 
+.align 32
 ENTRY(alloca)
 	_CET_ENDBR
 #ifdef __i386__

@@ -106,7 +106,7 @@
        pop %rax  
 .endm
 
-     
+.align 32
 DECLARE_GLOBAL_FUNC setjmp
 #ifdef LINUX32
     PUSHAL
@@ -115,6 +115,7 @@ DECLARE_GLOBAL_FUNC setjmp
     pushl   $SE_WORDSIZE
     pushl   %eax
     call    sgx_is_within_enclave
+.align 32
     cmpl    $0, %eax
     jz      .crash
     addl    $(2*SE_WORDSIZE), %esp
@@ -144,6 +145,7 @@ DECLARE_GLOBAL_FUNC setjmp
     /* check the buf is within the enclave */
     movq    $SE_WORDSIZE, %rsi
     call    sgx_is_within_enclave
+.align 32
     cmpl    $0, %eax
     jz      .crash
     POPAQ
@@ -173,6 +175,7 @@ DECLARE_GLOBAL_FUNC setjmp
 .crash:
     ud2
 
+.align 32
 DECLARE_GLOBAL_FUNC longjmp
 #ifdef LINUX32
     PUSHAL
@@ -181,6 +184,7 @@ DECLARE_GLOBAL_FUNC longjmp
     pushl   $SE_WORDSIZE
     pushl   %eax
     call    sgx_is_within_enclave
+.align 32
     cmpl    $0, %eax
     jz      .crash
     addl    $(2*SE_WORDSIZE), %esp
@@ -192,6 +196,7 @@ DECLARE_GLOBAL_FUNC longjmp
     pushl   %ebx
     /* check restored esp is on current statck */
     call    is_valid_sp
+.align 32
     cmpl    $0, %eax
     jz      .crash
     popl    %ebx   
@@ -229,6 +234,7 @@ DECLARE_GLOBAL_FUNC longjmp
     /* check the buf is within the enclave */
     movq    $SE_WORDSIZE, %rsi
     call    sgx_is_within_enclave
+.align 32
     cmpl    $0, %eax
     jz      .crash
     popq     %rdi
@@ -240,6 +246,7 @@ DECLARE_GLOBAL_FUNC longjmp
     /* check restored rsp is on current statck */
     popq    %rdi
     call    is_valid_sp
+.align 32
     cmpl    $0, %eax
     jz      .crash
     POPAQ

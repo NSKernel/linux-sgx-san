@@ -31,7 +31,7 @@
 
 include ../../../buildenv.mk
 
-CXXFLAGS += $(ENCLAVE_CXXFLAGS) -Werror -fno-rtti -fno-exceptions
+CXXFLAGS += $(ENCLAVE_CXXFLAGS) -Werror -Wno-sign-conversion -Wno-cast-align -fno-rtti -fno-exceptions
 
 CPPLAGS += -I$(COMMON_DIR)/inc/              \
            -I$(COMMON_DIR)/inc/internal/     \

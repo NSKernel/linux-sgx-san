@@ -64,7 +64,7 @@ CHECK_SOURCE :=
 # prepared before build. So skip the code check to avoid
 # triggering network request 
 ifneq ($(origin NIX_PATH), environment)
-CHECK_SOURCE:= ipp_source
+CHECK_SOURCE:=
 endif
 
 .PHONY: all build_ipp
@@ -78,7 +78,7 @@ all: build_ipp
 	$(CP) ipp-crypto/LICENSE ./license/
 
 build_ipp: $(CHECK_SOURCE)
-	cd $(IPP_SOURCE) && $(PRE_CONFIG) cmake CMakeLists.txt $(IPP_CONFIG) && cd build && make ippcp_s
+	cd $(IPP_SOURCE) && $(PRE_CONFIG) cmake CMakeLists.txt $(IPP_CONFIG) && cd build && make ippcp_s -j14
 
 .PHONY: ipp_source
 ipp_source:

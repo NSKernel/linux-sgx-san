@@ -54,7 +54,7 @@ extern const ecall_table_t g_ecall_table;
 // for every function in global ecall table check if it can be invoked by "switchless" call,
 // if so, copy the function pointer, otherwise set to NULL
 // 
-static sl_call_table_t* __attribute__((optimize("O0"))) new_ecall_table(void) 
+static sl_call_table_t* /*__attribute__((optimize("O0")))*/ new_ecall_table(void) 
 {
     uint32_t num_ecalls = (uint32_t)g_ecall_table.nr_ecall;
 

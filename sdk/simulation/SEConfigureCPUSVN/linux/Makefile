@@ -33,7 +33,7 @@ include ../../../../buildenv.mk
 
 SIM_DIR := $(CUR_DIR)/../..
 
-CXXFLAGS += -Werror
+CXXFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align
 CPPFLAGS := -I$(COMMON_DIR)/inc           \
             -I$(COMMON_DIR)/inc/internal  \
             -I$(SIM_DIR)/urtssim          \

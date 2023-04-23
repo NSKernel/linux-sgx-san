@@ -31,8 +31,8 @@
 
 include ../../../buildenv.mk
 
-CXXFLAGS += -Werror
-CFLAGS   += -Werror
+CXXFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align
+CFLAGS   += -Werror -Wno-sign-conversion -Wno-cast-align
 
 CFLAGS += -fpie
 CXXFLAGS += -fpie

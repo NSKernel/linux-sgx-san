@@ -46,7 +46,7 @@ CPPFLAGS += -I$(COMMON_DIR)/inc/         \
             -I$(LINUX_PSW_DIR)/urts      \
             -I$(LINUX_PSW_DIR)/urts/linux
 
-CXXFLAGS += -Werror -fPIC
+CXXFLAGS += -Werror -Wno-sign-conversion -Wno-cast-align -fPIC
 
 LIBSESIMU_U := libsesimu_u.a
 

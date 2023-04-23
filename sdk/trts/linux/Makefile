@@ -68,7 +68,7 @@ $(LIBTRTS): $(OBJS)
 
 %.o: %.S
 	echo $(ASM_SRCS)
-	$(CC) $(CFLAGS) $(TCFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(TCFLAGS) -fPIE -c $< -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(TCFLAGS) -c $< -o $@

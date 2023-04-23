@@ -186,7 +186,7 @@ tkey_exchange: edger8r
 
 .PHONY: tcmalloc
 tcmalloc:
-	$(MAKE) -C gperftools/
+	#$(MAKE) -C gperftools/
 
 .PHONY: tprotected_fs
 tprotected_fs: edger8r

@@ -124,7 +124,7 @@ void call_old_handler(int signum, void* siginfo, void *priv)
     }
 }
 
-void sig_handler_sim(int signum, siginfo_t *siginfo, void *priv) __attribute__((optimize(0))) __attribute__((optimize("no-stack-protector")));
+void sig_handler_sim(int signum, siginfo_t *siginfo, void *priv) /*__attribute__((optimize(0))) __attribute__((optimize("no-stack-protector")))*/;
 void sig_handler_sim(int signum, siginfo_t *siginfo, void *priv)
 {
     GP_ON(signum != SIGFPE && signum != SIGSEGV);

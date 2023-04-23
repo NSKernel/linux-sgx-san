@@ -33,6 +33,7 @@
 
 #include <string.h>
 
+
 #ifdef _TLIBC_USE_INTEL_FAST_STRING_
 extern void *_intel_fast_memset(void *, void *, size_t);
 #else

@@ -30,7 +30,12 @@
 
 #include <string.h>
 
-__weak_alias(index, strchr);
+
+
+__asm__(".weak " __STRING(index) " ; "
+    __STRING(index) " = " __STRING(strchr));
+//extern __typeof (index) strchr __attribute__ ((weak, alias (#index)));
+//__weak_alias(index, strchr);
 
 #ifdef _TLIBC_USE_INTEL_FAST_STRING_
 extern char *_intel_fast_strchr(const char *, int);

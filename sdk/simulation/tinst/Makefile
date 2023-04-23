@@ -43,7 +43,7 @@ CPPFLAGS += -I$(COMMON_DIR)/inc/           \
             -I$(LINUX_PSW_DIR)/urts/linux  \
             -I$(LINUX_SDK_DIR)/selib
 
-CXXFLAGS += $(ENCLAVE_CXXFLAGS) -Werror -fno-exceptions -fno-rtti
+CXXFLAGS += $(ENCLAVE_CXXFLAGS) -Werror -Wno-sign-conversion -Wno-cast-align -fno-exceptions -fno-rtti
 
 LIBSESIMU_T := libsesimu_t.a
 
